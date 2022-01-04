@@ -99,21 +99,21 @@
   // Subscribe to wallet updates
   const wallets$ = onboard.state.select('wallets').pipe(share())
 
-  const signTransactionMessage = provider => {
+  const signTransactionMessage = (provider, address) => {
     provider.request({
       method: 'eth_signTransaction',
       params: [JSON.parse(signTransactionMessage)]
     })
   }
 
-  const signMessage = provider => {
+  const signMessage = (provider, address) => {
     provider.request({
       method: 'eth_sign',
       params: [address, keccak256(toUtf8Bytes(signMsg))]
     })
   }
 
-  const signTypedMessage = provider => {
+  const signTypedMessage = (provider, address) => {
     const msgParams = [
       {
         type: 'string',
@@ -220,7 +220,7 @@
               placeholder="Message..."
               bind:value={signMsg}
             />
-            <button on:click={signMessage(provider)}> Sign Message </button>
+            <button on:click={signMessage(provider, address)}> Sign Message </button>
           </div>
           <div>
             <input
@@ -230,7 +230,7 @@
               placeholder="Typed message..."
               bind:value={signTypedMsg}
             />
-            <button on:click={signTypedMessage(provider)}>
+            <button on:click={signTypedMessage(provider, address)}>
               Sign Typed Message
             </button>
           </div>
@@ -241,7 +241,7 @@
               id="sign-transaction-input"
               type="text"
               class="sign-transaction-textarea" />
-            <button on:click={signTransactionMessage(provider)} style="margin: 0 0 0 .5rem">
+            <button on:click={signTransactionMessage(provider, address)} style="margin: 0 0 0 .5rem">
               Sign Transaction
             </button>
           </div>
