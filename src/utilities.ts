@@ -304,6 +304,8 @@ export function getProviderName(provider: any): string | undefined {
   if (provider.isOpera) {
     return 'Opera'
   }
+  
+  //
 
   if (provider.isStatus) {
     return 'Status'
